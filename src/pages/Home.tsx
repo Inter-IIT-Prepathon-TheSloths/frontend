@@ -1,14 +1,12 @@
-import { useEffect } from "react"
-import { useSearchParams } from "react-router-dom";
+import { useUser } from "../context/context.tsx";
 
 const Home = () => {
-  const [_, setSearchParams] = useSearchParams();
+  const { user } = useUser();
 
-  useEffect(() => {
-    setSearchParams()
-  }, [])
   return (
-    <div>Home</div>
+    <div>
+      Hello {user?.name}!
+    </div>
   )
 }
 
