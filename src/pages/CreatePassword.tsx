@@ -11,7 +11,7 @@ const CreatePassword = () => {
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
-      window.location.href = "/"
+      navigate("/")
     }
   }, [])
 

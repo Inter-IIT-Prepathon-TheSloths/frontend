@@ -5,7 +5,7 @@ const Home = () => {
 
   return (
     <div>
-      Hello {user?.name}!
+      Hello {user?.email}!
     </div>
   )
 }

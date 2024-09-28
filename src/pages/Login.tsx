@@ -1,22 +1,52 @@
 // import { useEffect } from "react"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import axios from "../utils/axiosInstance"
+import { useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
 
 const Login = () => {
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const navigate = useNavigate()
+
   const googleLoginHandler = async () => {
     const response = await axios.get("/auth/google")
     window.location.href = response.data.url
   }
 
+  const loginHandler = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const response = await axios.post("/auth/login", {
+      email, password
+    })
+    const { jwt } = response.data
+    localStorage.setItem("token", jwt)
+    navigate("/")
+  }
+
   useEffect(() => {
     if (localStorage.getItem("token")) {
-      window.location.href = "/"
+      navigate("/")
     }
   }, [])
 
 
   return (
-    <button onClick={googleLoginHandler}>Google</button>
+    <>
+      <button onClick={googleLoginHandler}>Google</button>
+      <form onSubmit={loginHandler}>
+        <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+        <input type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
+        <button type="submit">Login</button>
+        <p>
+          <Link to="/recover_password">Forgot Password?</Link>
+        </p>
+        <div>
+          Don't have an account?
+          <Link to="/signup">Sign Up</Link>
+        </div>
+      </form>
+    </>
   )
 }
 

@@ -6,6 +6,9 @@ import CreatePassword from "./pages/CreatePassword";
 import { Toaster } from "react-hot-toast";
 import PrivateRoute from "./components/ProtectedRoute";
 import BackendRedirection from "./pages/BackendRedirection";
+import Signup from "./pages/Signup";
+import Layout from "./components/Layout";
+import { UserProvider } from "./context/context";
 
 function App() {
   return (
@@ -13,12 +16,17 @@ function App() {
       <Routes>
         <Route path="/backend_redirect" element={<BackendRedirection />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
         <Route path="/create_password" element={<CreatePassword />} />
-        <Route path="/" element={
-          <PrivateRoute>
-            <Home />
-          </PrivateRoute>
-        } />
+        <Route path="" element={
+          <UserProvider>
+            <PrivateRoute>
+              <Layout />
+            </PrivateRoute>
+          </UserProvider>
+        } >
+          <Route path="/" element={<Home />} />
+        </Route>
       </Routes>
       <Toaster position="top-right" />
     </Router>
