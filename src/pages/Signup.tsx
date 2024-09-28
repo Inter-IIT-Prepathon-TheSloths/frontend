@@ -19,16 +19,12 @@ const Signup = () => {
             return toast.error("Passwords do not match")
         }
 
-        try {
-            const response = await axios.post("/auth/signup", {
-                email, password
-            })
+        const response = await axios.post("/auth/signup", {
+            email, password
+        })
 
-            const { jwt } = response.data
-            localStorage.setItem("token", jwt)
-            navigate("/")
-        } catch (error) {
-
+        if (response.status === 201) {
+            return navigate(`/otp?email=${email}`)
         }
     }
 

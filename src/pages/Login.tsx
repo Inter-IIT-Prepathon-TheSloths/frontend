@@ -9,8 +9,8 @@ const Login = () => {
   const [password, setPassword] = useState("")
   const navigate = useNavigate()
 
-  const googleLoginHandler = async () => {
-    const response = await axios.get("/auth/google")
+  const oauthLoginHandler = async (provider: string) => {
+    const response = await axios.get(`/auth/oauth/${provider}`)
     window.location.href = response.data.url
   }
 
@@ -33,7 +33,8 @@ const Login = () => {
 
   return (
     <>
-      <button onClick={googleLoginHandler}>Google</button>
+      <button onClick={() => oauthLoginHandler("google")}>Google</button>
+      <button onClick={() => oauthLoginHandler("github")}>GitHub</button>
       <form onSubmit={loginHandler}>
         <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
         <input type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />

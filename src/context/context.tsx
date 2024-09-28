@@ -5,7 +5,7 @@ import { AxiosResponse } from 'axios';
 interface User {
   id?: string;
   name?: string;
-  email?: string;
+  emails?: [string];
   picture?: string;
 }
 

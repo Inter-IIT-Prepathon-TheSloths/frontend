@@ -9,6 +9,7 @@ import BackendRedirection from "./pages/BackendRedirection";
 import Signup from "./pages/Signup";
 import Layout from "./components/Layout";
 import { UserProvider } from "./context/context";
+import OtpVerification from "./pages/OtpVerification";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/backend_redirect" element={<BackendRedirection />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/otp" element={<OtpVerification />} />
         <Route path="/create_password" element={<CreatePassword />} />
         <Route path="" element={
           <UserProvider>
