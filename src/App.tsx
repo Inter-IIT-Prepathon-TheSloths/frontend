@@ -1,25 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import Home from "./pages/Home";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Login from "./pages/Login";
+import CreatePassword from "./pages/CreatePassword";
+import { Toaster } from "react-hot-toast";
+import PrivateRoute from "./components/ProtectedRoute";
+import BackendRedirection from "./pages/BackendRedirection";
+import Signup from "./pages/Signup";
+import Layout from "./components/Layout";
+import { UserProvider } from "./context/context";
+import OtpVerification from "./pages/OtpVerification";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/backend_redirect" element={<BackendRedirection />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/otp" element={<OtpVerification />} />
+        <Route path="/create_password" element={<CreatePassword />} />
+        <Route path="" element={
+          <UserProvider>
+            <PrivateRoute>
+              <Layout />
+            </PrivateRoute>
+          </UserProvider>
+        } >
+          <Route path="/" element={<Home />} />
+        </Route>
+      </Routes>
+      <Toaster position="top-right" />
+    </Router>
   );
 }
 
