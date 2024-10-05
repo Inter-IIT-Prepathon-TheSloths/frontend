@@ -10,29 +10,37 @@ import Signup from "./pages/Signup";
 import Layout from "./components/Layout";
 import { UserProvider } from "./context/context";
 import OtpVerification from "./pages/OtpVerification";
+import SearchCompanyEntries from "./pages/Search";
 
 function App() {
-  return (
-    <Router>
-      <Routes>
-        <Route path="/backend_redirect" element={<BackendRedirection />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/otp" element={<OtpVerification />} />
-        <Route path="/create_password" element={<CreatePassword />} />
-        <Route path="" element={
-          <UserProvider>
-            <PrivateRoute>
-              <Layout />
-            </PrivateRoute>
-          </UserProvider>
-        } >
-          <Route path="/" element={<Home />} />
-        </Route>
-      </Routes>
-      <Toaster position="top-right" />
-    </Router>
-  );
+    return (
+        <Router>
+            <Routes>
+                <Route
+                    path="/backend_redirect"
+                    element={<BackendRedirection />}
+                />
+                <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<Signup />} />
+                <Route path="/otp" element={<OtpVerification />} />
+                <Route path="/create_password" element={<CreatePassword />} />
+                <Route path="/search" element={<SearchCompanyEntries />} />
+                <Route
+                    path=""
+                    element={
+                        <UserProvider>
+                            <PrivateRoute>
+                                <Layout />
+                            </PrivateRoute>
+                        </UserProvider>
+                    }
+                >
+                    <Route path="/" element={<Home />} />
+                </Route>
+            </Routes>
+            <Toaster position="top-right" />
+        </Router>
+    );
 }
 
 export default App;
