@@ -8,9 +8,11 @@ const BackendRedirection = () => {
     useEffect(() => {
         const urlParams = new URLSearchParams(window.location.search);
         const token = urlParams.get("token")
+        const refreshToken = urlParams.get("refreshToken")
         const id = urlParams.get("id")
-        if (token) {
+        if (token && refreshToken) {
             localStorage.setItem("token", token)
+            localStorage.setItem("refreshToken", refreshToken)
         } else if (id) {
             setSearchParams()
             return navigate(`/create_password?id=${id}`)

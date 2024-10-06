@@ -11,6 +11,7 @@ import Layout from "./components/Layout";
 import { UserProvider } from "./context/context";
 import SearchCompanyEntries from "./pages/Search";
 import Loader from "./components/Loader";
+import ResetPassword from "./pages/ResetPassword";
 
 function App() {
     return (
@@ -25,6 +26,7 @@ function App() {
                 <Route path="/create_password" element={<CreatePassword />} />
                 <Route path="/search" element={<SearchCompanyEntries />} />
                 <Route path="/loader" element={<Loader />} />
+                <Route path="/reset_password" element={<ResetPassword />} />
                 <Route
                     path=""
                     element={

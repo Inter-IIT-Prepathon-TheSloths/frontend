@@ -59,7 +59,7 @@ const Signup = () => {
                             <Oauth />
                         </div>
                         :
-                        <OtpVerification email={email} password={password} />
+                        <OtpVerification email={email} password={password} use='signup' />
                     :
                     <Loader />
             }
