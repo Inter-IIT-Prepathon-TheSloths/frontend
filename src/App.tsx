@@ -9,8 +9,8 @@ import BackendRedirection from "./pages/BackendRedirection";
 import Signup from "./pages/Signup";
 import Layout from "./components/Layout";
 import { UserProvider } from "./context/context";
-import OtpVerification from "./pages/OtpVerification";
 import SearchCompanyEntries from "./pages/Search";
+import Loader from "./components/Loader";
 
 function App() {
     return (
@@ -22,9 +22,9 @@ function App() {
                 />
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
-                <Route path="/otp" element={<OtpVerification />} />
                 <Route path="/create_password" element={<CreatePassword />} />
                 <Route path="/search" element={<SearchCompanyEntries />} />
+                <Route path="/loader" element={<Loader />} />
                 <Route
                     path=""
                     element={

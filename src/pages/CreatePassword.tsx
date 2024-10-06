@@ -36,7 +36,6 @@ const CreatePassword = () => {
     })
     const token = response.data.token
     localStorage.setItem("token", token)
-    navigate("/backend_redirect")
   }
 
   return (

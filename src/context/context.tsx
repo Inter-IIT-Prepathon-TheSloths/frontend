@@ -35,7 +35,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
           const res: AxiosResponse<User> = await axios.get("/auth/me", {
             "headers": { "Authorization": `Bearer ${token}` },
           });
-          if (res.data)
+          if (res && res.data)
             setUser(res.data);
           else {
             localStorage.removeItem("token")
@@ -43,7 +43,6 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
           }
         } catch (error) {
           console.error("Error fetching user:", error);
-          localStorage.removeItem("token")
           setUser({});
         }
       } else {

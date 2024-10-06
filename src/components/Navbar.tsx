@@ -1,9 +1,19 @@
 import { useNavigate } from "react-router-dom"
+import axios from "../utils/axiosInstance"
 
 const Navbar = () => {
     const navigate = useNavigate()
-    const logoutHandler = () => {
-        localStorage.removeItem("token")
+    const logoutHandler = async () => {
+        const token = localStorage.getItem('token')
+        const refreshToken = localStorage.getItem('refreshToken')
+        await axios.delete("/auth/logout", {
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "X-Refresh-Token": refreshToken
+            }
+        })
+        localStorage.removeItem('token')
+        localStorage.removeItem('refreshToken')
         navigate("/login")
     }
     return (
