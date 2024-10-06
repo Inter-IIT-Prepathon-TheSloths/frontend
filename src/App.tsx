@@ -10,8 +10,9 @@ import Signup from "./pages/Signup";
 import Layout from "./components/Layout";
 import { UserProvider } from "./context/context";
 import SearchCompanyEntries from "./pages/Search";
-import Loader from "./components/Loader";
 import ResetPassword from "./pages/ResetPassword";
+import Twofa from "./pages/TwofaEnable";
+import AskTwofa from "./pages/AskTwofa";
 
 function App() {
     return (
@@ -25,7 +26,9 @@ function App() {
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/create_password" element={<CreatePassword />} />
                 <Route path="/search" element={<SearchCompanyEntries />} />
-                <Route path="/loader" element={<Loader />} />
+                <Route path="/ask_twofa" element={<AskTwofa />} />
+                {/* <Route path="/loader" element={<Loader />} /> */}
+
                 <Route path="/reset_password" element={<ResetPassword />} />
                 <Route
                     path=""
@@ -38,6 +41,7 @@ function App() {
                     }
                 >
                     <Route path="/" element={<Home />} />
+                    <Route path="/twofa_enable" element={<Twofa />} />
                 </Route>
             </Routes>
             <Toaster position="top-right" />

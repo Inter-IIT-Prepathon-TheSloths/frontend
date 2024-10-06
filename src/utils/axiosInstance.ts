@@ -63,6 +63,13 @@ axios.interceptors.response.use(
                 return Promise.reject(error);
             }
 
+            if (error.response?.status === 403) {
+                localStorage.removeItem("token");
+                localStorage.removeItem("refreshToken");
+                window.location.href = "/login";
+                return Promise.reject(error);
+            }
+
             console.error("Error response:", error.response.data);
             error_message =
                 error.response.data.error || "An unexpected error occurred";

@@ -20,10 +20,14 @@ const Login = () => {
         email, password
       })
       setLoading(false)
-      const { token, refreshToken } = response.data
+      const { token, refreshToken, askForTwofa } = response.data
       localStorage.setItem("token", token)
       localStorage.setItem("refreshToken", refreshToken)
-      navigate("/")
+      if (askForTwofa) {
+        navigate("/ask_twofa")
+      } else {
+        navigate("/")
+      }
     } catch (error) {
       setLoading(false)
     }

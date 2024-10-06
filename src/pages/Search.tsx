@@ -24,7 +24,7 @@ export default function SearchCompanyEntries() {
             const response = await axios.get("http://localhost:8000/search", {
                 params: {
                     company: companyName,
-                    country_code: countryCode,
+                    countrycode: countryCode,
                 },
                 signal: ac.signal,
             });

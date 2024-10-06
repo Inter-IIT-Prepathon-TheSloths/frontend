@@ -7,6 +7,7 @@ interface User {
   name?: string;
   emails?: [string];
   picture?: string;
+  TwofaEnabled?: boolean;
 }
 
 interface UserContextType {
