@@ -144,7 +144,7 @@ const ChartOne: React.FC<ChartOneProps> = ({ series, mini, maxi }) => {
 
         <div className="flex w-full flex-wrap gap-3 sm:gap-5">
           {
-            state.series.map((series, index) => (
+            state?.series?.map((series, index) => (
               <div className="flex min-w-47.5">
                 <span className="mt-1 mr-2 flex h-4 w-full max-w-4 items-center justify-center rounded-full border border-primary">
                   <span className={`block h-2.5 w-full max-w-2.5 rounded-full`} style={

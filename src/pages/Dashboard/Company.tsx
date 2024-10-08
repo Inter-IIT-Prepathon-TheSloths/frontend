@@ -40,7 +40,7 @@ const ECommerce: React.FC = () => {
     Object.entries(details.c).forEach(([key, value]: [string, any]) => {
       series.push({
         name: key,
-        data: Object.values(value).map((val: any) => Math.floor(val)),
+        data: Object.values(value)?.map((val: any) => Math.floor(val)),
       });
     });
     return series;
@@ -49,7 +49,7 @@ const ECommerce: React.FC = () => {
   const getMini = () => {
     let mini = 1000000000000
     Object.entries(details.c).forEach(([_, value]: [string, any]) => {
-      mini = Math.min(mini, Math.min(...Object.values(value).map((val: any) => Math.floor(val))));
+      mini = Math.min(mini, Math.min(...Object.values(value)?.map((val: any) => Math.floor(val))));
     })
     return mini;
   }
@@ -57,18 +57,18 @@ const ECommerce: React.FC = () => {
   const getMaxi = () => {
     let maxi = -1000000000000
     Object.entries(details.c).forEach(([_, value]: [string, any]) => {
-      maxi = Math.max(maxi, Math.max(...Object.values(value).map((val: any) => Math.floor(val))));
+      maxi = Math.max(maxi, Math.max(...Object.values(value)?.map((val: any) => Math.floor(val))));
     })
     return maxi;
   }
 
   const getComparisonSeries = () => {
     let series: Series[] = [];
-    let domestic_counts = details.d.map((entry: any) => (
+    let domestic_counts = details.d?.map((entry: any) => (
       entry.dom_cnt
     ))
 
-    let global_counts = details.d.map((entry: any) => (
+    let global_counts = details.d?.map((entry: any) => (
       entry.glob_cnt
     ))
 
@@ -85,20 +85,20 @@ const ECommerce: React.FC = () => {
   }
 
   const getComparisonMini = () => {
-    let domestic_counts = details.d.map((entry: any) => (
+    let domestic_counts = details.d?.map((entry: any) => (
       entry.dom_cnt
     ))
-    let global_counts = details.d.map((entry: any) => (
+    let global_counts = details.d?.map((entry: any) => (
       entry.glob_cnt
     ))
     return Math.min(Math.min(...domestic_counts), Math.min(...global_counts));
   }
 
   const getComparisonMaxi = () => {
-    let domestic_counts = details.d.map((entry: any) => (
+    let domestic_counts = details.d?.map((entry: any) => (
       entry.dom_cnt
     ))
-    let global_counts = details.d.map((entry: any) => (
+    let global_counts = details.d?.map((entry: any) => (
       entry.glob_cnt
     ))
     return Math.max(Math.max(...domestic_counts), Math.max(...global_counts));
@@ -164,7 +164,7 @@ const ECommerce: React.FC = () => {
                 <h2 className='font-bold text-xl mb-3'>Predictions for next year</h2>
                 <div className='flex gap-4'>
                   {
-                    Object.entries(details.f).map(([key, value]: [string, any]) => (
+                    Object.entries(details.f)?.map(([key, value]: [string, any]) => (
                       <CardDataStats title={key} total={value} />
                     ))
                   }

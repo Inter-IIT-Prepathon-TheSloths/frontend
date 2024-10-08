@@ -43,7 +43,7 @@ const Table: React.FC<CompanyProps> = ({ companies }) => {
           </div>
         </div>
 
-        {companies.map((company, key) => (
+        {companies?.map((company, key) => (
           <div
             className={`grid grid-cols-3 sm:grid-cols-5 ${key === companies.length - 1
               ? ''
