@@ -19,7 +19,7 @@ const ECommerce: React.FC = () => {
     async function fetchDetails() {
       setLoading(true)
       try {
-        const response = await axios.get(`/analytics/${id}`, {
+        const response = await axios.get(`/analytics/company/${id}`, {
           headers: {
             "Authorization": `Bearer ${localStorage.getItem("token")}`,
           }
