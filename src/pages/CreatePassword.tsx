@@ -29,9 +29,15 @@ const CreatePassword = () => {
   }
 
   return (
-    <div>
-      Please Create a password to proceed
-      <AskForPassword password={password} setPassword={setPassword} onSubmit={passwordHandler} />
+    <div className="flex justify-center items-center w-[100vw] h-[100vh]">
+      <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark w-[50%] h-[50%]">
+        <div className="border-b border-stroke py-4 px-6.5 dark:border-strokedark">
+          <h3 className="font-medium text-black dark:text-white">
+            Please Create a password to be logged in later
+          </h3>
+        </div>
+        <AskForPassword password={password} setPassword={setPassword} onSubmit={passwordHandler} />
+      </div>
     </div>
   )
 }

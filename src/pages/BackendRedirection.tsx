@@ -10,11 +10,12 @@ const BackendRedirection = () => {
         const refreshToken = urlParams.get("refreshToken")
         const askForTwofa = urlParams.get("askForTwofa")
         const id = urlParams.get("id")
-        console.log(id, token, refreshToken, askForTwofa)
-        if (token && (refreshToken != null) && askForTwofa) {
+        if (token && (refreshToken != null)) {
             localStorage.setItem("token", token)
             localStorage.setItem("refreshToken", refreshToken)
-            return navigate("/ask_twofa")
+            if (askForTwofa === "true")
+                return navigate("/ask_twofa")
+            else return navigate("/")
         } else if (id) {
             return navigate(`/create_password?id=${id}`)
         }

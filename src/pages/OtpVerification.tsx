@@ -3,6 +3,7 @@ import axios from "../utils/axiosInstance"
 import { useNavigate } from "react-router-dom";
 import Loader from "../components/Loader";
 import toast from "react-hot-toast";
+import PinInput from 'react-pin-input';
 
 interface Props {
     email: string;
@@ -89,22 +90,53 @@ const OtpVerification: React.FC<Props> = ({ email, password, use }) => {
         <>
             {
                 !loading ?
-                    <div>
-                        <p>
-                            Please enter the otp sent to your email: {email.substring(0, Math.min(4, email.length))}****{email.split("@")[1]}
+                    <div className="flex flex-col items-center gap-3">
+                        <p className="text-3xl font-bold">
+                            Verify Your Account
                         </p>
-                        <form onSubmit={submitHandler}>
-                            <input type="text" placeholder="Enter OTP" value={otp} onChange={e => setOtp(e.target.value)} />
+                        <p>
+                            Enter the otp sent to your email: {email.substring(0, Math.min(4, email.length))}****{email.split("@")[1]}
+                        </p>
+                        <form onSubmit={submitHandler} className="flex flex-col gap-3 items-center">
+                            <div className="otp-container">
+                                <PinInput
+                                    length={6}
+                                    focus
+                                    type="numeric"
+                                    inputMode="text"
+                                    onChange={(value) => setOtp(value)}
+                                    onComplete={(value) => setOtp(value)}
+                                    style={{ padding: '10px' }}
+                                    inputStyle={{
+                                        borderColor: 'gray',
+                                        borderRadius: '5px',
+                                        margin: '5px',
+                                        width: '50px',
+                                        height: '50px',
+                                        textAlign: 'center',
+                                    }}
+                                />
+                            </div>
                             {
                                 showPassword &&
                                 <>
-                                    <input type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} placeholder="Create Password" />
-                                    <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} className={`${password != confirmPassword ? "outline-red-400" : "outline-none"}`} placeholder="Confirm Password" />
+                                    <input
+                                        type="password"
+                                        placeholder="Enter password"
+                                        className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                                        value={newPassword} onChange={(e) => setNewPassword(e.target.value)}
+                                    />
+                                    <input
+                                        type="password"
+                                        placeholder="Confirm password"
+                                        className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                                        value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}
+                                    />
                                 </>
                             }
-                            <button type="submit">Submit</button>
+                            <button type="submit" className="w-full cursor-pointer rounded-lg border border-primary bg-primary p-2 text-white transition hover:bg-opacity-90">Submit</button>
                         </form>
-                        <p className="text-blue-400 cursor-pointer" onClick={resendVerificationLink}>Resend verification otp?</p>
+                        <p className="text-blue-500 cursor-pointer" onClick={resendVerificationLink}>Resend verification otp?</p>
                     </div>
                     :
                     <Loader />

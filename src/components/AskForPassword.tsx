@@ -27,10 +27,36 @@ const AskForPassword: React.FC<PasswordFormProps> = ({ password, setPassword, on
     }
     return (
         <form onSubmit={passwordHandler}>
-            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Create Password" />
-            <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} className={`${password != confirmPassword ? "outline-red-400" : "outline-none"}`} placeholder="Confirm Password" />
+            <div className="p-6.5">
 
-            <button type="submit">Submit</button>
+                <div className="mb-4.5">
+                    <label className="mb-2.5 block text-black dark:text-white">
+                        Password
+                    </label>
+                    <input
+                        type="password"
+                        placeholder="Enter password"
+                        className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                        value={password} onChange={(e) => setPassword(e.target.value)}
+                    />
+                </div>
+
+                <div className="mb-5.5">
+                    <label className="mb-2.5 block text-black dark:text-white">
+                        Confirm Password
+                    </label>
+                    <input
+                        type="password"
+                        placeholder="Confirm password"
+                        className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                        value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}
+                    />
+                </div>
+
+                <button className="flex w-full justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90">
+                    Submit
+                </button>
+            </div>
         </form>
     )
 }

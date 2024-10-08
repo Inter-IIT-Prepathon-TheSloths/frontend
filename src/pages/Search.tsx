@@ -1,90 +1,82 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 import axios from "../utils/axiosInstance";
-import { useNavigate } from "react-router-dom";
+import Table from "../components/Tables/Table";
 
 interface CompanyEntry {
-    s_no: string;
+    s_no: number;
     company: string;
+    country: string;
     country_code: string;
 }
 
 export default function SearchCompanyEntries() {
-    const [companyName, setCompanyName] = useState("");
-    const [countryCode, setCountryCode] = useState("");
+    const [company, setCompany] = useState("");
+    const [country, setCountry] = useState("");
     const [companyEntries, setCompanyEntries] = useState<CompanyEntry[]>([]);
-    const navigate = useNavigate();
-    const timeoutRef = useRef<number | null>(null);
+    const [filteredEntries, setFilteredEntries] = useState<CompanyEntry[]>([]);
     useEffect(() => {
-        if (!companyName && !countryCode) return;
 
-        const ac = new AbortController();
         async function fetchEntries() {
-            // todo: replace with actual API endpoint
-            const response = await axios.get("http://localhost:8000/search", {
-                params: {
-                    company: companyName,
-                    countrycode: countryCode,
-                },
-                signal: ac.signal,
+            const response = await axios.get("/analytics/companies", {
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem("token")}`,
+                }
             });
             if (response.data.length !== undefined)
                 setCompanyEntries(response.data);
         }
-        timeoutRef.current = setTimeout(fetchEntries, 500);
-        return () => {
-            if (timeoutRef.current) {
-                clearTimeout(timeoutRef.current);
-            }
-            ac.abort();
-        };
-    }, [companyName, countryCode]);
 
-    function handleEntryClick(entry: CompanyEntry) {
-        console.log(entry);
-        navigate(`/company/${entry.s_no}`);
+        fetchEntries();
+    }, []);
+
+    const getFilteredEntries = () => {
+        if (!company && !country) {
+            setFilteredEntries([])
+            return
+        }
+        const companies = companyEntries.filter(
+            (entry) =>
+                (
+                    entry.company.toLowerCase().includes(company.toLowerCase()) ||
+                    entry.s_no.toString().includes(company.toLowerCase())
+                ) &&
+                (
+                    entry.country_code.toLowerCase().includes(country.toLowerCase()) ||
+                    entry.country.toLowerCase().includes(country.toLowerCase())
+                )
+        );
+        setFilteredEntries(companies);
     }
 
+    useEffect(() => {
+        getFilteredEntries();
+    }, [company, country, companyEntries]);
+
     return (
-        <div>
-            <h1>Search Company Entries</h1>
-            <input
-                type="text"
-                placeholder="Company name"
-                value={companyName}
-                onChange={(e) => setCompanyName(e.target.value)}
-            />
-            <input
-                type="text"
-                placeholder="Country code"
-                value={countryCode}
-                onChange={(e) => setCountryCode(e.target.value)}
-            />
-            <div>Entries matching the query</div>
-            {companyEntries.length === 0 ? (
-                <p>No entries found</p>
+        <div className="flex flex-col items-center">
+            <div className="flex flex-col gap-3 w-[70%] bg-white p-3 rounded-lg">
+                <h1 className="text-center font-bold text-2xl">Search Company Entries</h1>
+                <div className="flex gap-4 justify-center">
+                    <input
+                        type="text"
+                        placeholder="Company ID/name"
+                        className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                        value={company} onChange={(e) => setCompany(e.target.value)}
+                    />
+                    <input
+                        type="text"
+                        placeholder="Country code/name"
+                        className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                        value={country} onChange={(e) => setCountry(e.target.value)}
+                    />
+                </div>
+            </div>
+            {/* <div>Entries matching the query</div> */}
+            {filteredEntries.length === 0 ? (
+                <div className="w-full h-[70vh] text-lg flex justify-center items-center">No entries found</div>
             ) : (
-                <table>
-                    <thead>
-                        <tr>
-                            <th>S. No</th>
-                            <th>Company</th>
-                            <th>Country Code</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {companyEntries.map((entry) => (
-                            <tr
-                                key={entry.s_no}
-                                onClick={() => handleEntryClick(entry)}
-                            >
-                                <td>{entry.s_no}</td>
-                                <td>{entry.company}</td>
-                                <td>{entry.country_code}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
+                <Table companies={filteredEntries} />
             )}
         </div>
     );

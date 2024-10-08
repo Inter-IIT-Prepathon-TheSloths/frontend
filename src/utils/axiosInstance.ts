@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 
 const axios = axiosLib.create({
     baseURL: import.meta.env.VITE_BACKEND_URL + "/api/v1",
-    timeout: 10000,
+    timeout: 180000,
     headers: {
         "Content-Type": "application/json",
     },
