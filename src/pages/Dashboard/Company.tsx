@@ -8,7 +8,7 @@ import axios from '../../utils/axiosInstance';
 import Loader from '../../components/Loader';
 import { useLocation } from 'react-router-dom';
 
-const ECommerce: React.FC = () => {
+const Company: React.FC = () => {
   const [details, setDetails] = useState<any>({})
   const [loading, setLoading] = useState(false)
   const location = useLocation();
@@ -160,16 +160,19 @@ const ECommerce: React.FC = () => {
                 <p className='bg-white p-3 mt-4 rounded-md'>{evaluateCompanyGrowthStability(details.e.cagr_ratio.Expense * 100, details.e.cagr_ratio["Market Share"] * 100, details.e.cagr_ratio.Revenue * 100, details.e.cagr_ratio["Stock Price"] * 100, details.e.e_r_ratio[0] * 100, details.e.e_r_ratio[1] * 100)}</p>
               </div>
 
-              <div className='mt-3'>
-                <h2 className='font-bold text-xl mb-3'>Predictions for next year</h2>
-                <div className='flex gap-4'>
-                  {
-                    Object.entries(details.f)?.map(([key, value]: [string, any]) => (
-                      <CardDataStats title={key} total={value} />
-                    ))
-                  }
+              {
+                details.f &&
+                <div className='mt-3'>
+                  <h2 className='font-bold text-xl mb-3'>Predictions for next year</h2>
+                  <div className='flex gap-4'>
+                    {
+                      Object.entries(details.f)?.map(([key, value]: [string, any]) => (
+                        <CardDataStats title={key} total={value} />
+                      ))
+                    }
+                  </div>
                 </div>
-              </div>
+              }
             </> :
             <div>
               No Data Found
@@ -180,4 +183,4 @@ const ECommerce: React.FC = () => {
   );
 };
 
-export default ECommerce;
+export default Company;

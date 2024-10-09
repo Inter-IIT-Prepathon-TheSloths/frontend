@@ -23,10 +23,9 @@ const DropdownUser = () => {
 
   return (
     <ClickOutside onClick={() => setDropdownOpen(false)} className="relative">
-      <Link
+      <div
         onClick={() => setDropdownOpen(!dropdownOpen)}
-        className="flex items-center justify-center"
-        to="#"
+        className="flex items-center justify-center cursor-pointer"
       >
 
         <span className="h-12 w-12 rounded-full flex justify-center items-center">
@@ -48,7 +47,7 @@ const DropdownUser = () => {
             fill=""
           />
         </svg>
-      </Link>
+      </div>
 
       {/* <!-- Dropdown Start --> */}
       {dropdownOpen && (

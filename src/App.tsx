@@ -60,7 +60,7 @@ function App() {
                         path="/company"
                         element={
                             <>
-                                <PageTitle title="eCommerce Dashboard | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+                                <PageTitle title="Company Info " />
                                 <Company />
                             </>
                         }

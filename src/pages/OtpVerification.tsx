@@ -64,6 +64,7 @@ const OtpVerification: React.FC<Props> = ({ email, password, use }) => {
                 })
                 localStorage.removeItem("token")
                 localStorage.removeItem("refreshToken")
+                toast.success("Logged out from all sessions")
                 setTimeout(() => {
                     return navigate("/login")
                 }, 2000)
@@ -96,6 +97,9 @@ const OtpVerification: React.FC<Props> = ({ email, password, use }) => {
                         </p>
                         <p>
                             Enter the otp sent to your email: {email.substring(0, Math.min(4, email.length))}****{email.split("@")[1]}
+                        </p>
+                        <p>
+                            ( Check in Spam if not found )
                         </p>
                         <form onSubmit={submitHandler} className="flex flex-col gap-3 items-center">
                             <div className="otp-container">
